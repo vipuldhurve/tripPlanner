@@ -68,6 +68,8 @@ public class PassengerService {
             passenger.setBalance(passenger.getBalance() - activityCost);
             passenger.getActivities().add(activity);
             activity.getPassengers().add(passenger);
+            passengerRepository.save(passenger);
+            activityRepository.save(activity);
             System.out.println(passenger.getName() + " (Standard Passenger) signed up for " + activity.getName());
             return true;
         }
@@ -83,6 +85,8 @@ public class PassengerService {
             passenger.setBalance(passenger.getBalance() - discountedCost);
             passenger.getActivities().add(activity);
             activity.getPassengers().add(passenger);
+            passengerRepository.save(passenger);
+            activityRepository.save(activity);
             System.out.println(passenger.getName() + " (Gold Passenger) signed up for " + activity.getName() + " with " + (DISCOUNT_TEN_PERCENT * 100) + "% discount");
             return true;
         }
@@ -94,7 +98,8 @@ public class PassengerService {
     private boolean signUpActivityPremiumPassenger(Passenger passenger, Activity activity) {
         // Premium passengers can sign up for activities for free
         System.out.println(passenger.getName() + " (Premium Passenger) signed up for " + activity.getName() + " for free");
-
+        passengerRepository.save(passenger);
+        activityRepository.save(activity);
         return true;
     }
 

@@ -41,6 +41,54 @@ public class TravelPackage {
         this.passengerCapacity = passengerCapacity;
     }
 
+    //Methods
+    //Print itinerary - destination and activities available in a travel package
+    public void printItinerary(){
+        System.out.println("Travel Package: " + name);
+        for(Destination destination: itinerary){
+            System.out.println("Destination: " + destination.getName());
+            for(Activity activity: destination.getActivities()){
+                System.out.println("Activity: " + activity.getName() + ", Cost: "+ activity.getCost() + ", Capacity: "+ activity.getCapacity() + ", Description: "+activity.getDescription());
+            }
+        }
+    }
+
+    //Print Passenger List of a travel package
+    public void printPassengerList(){
+        System.out.println("Travel Package: " + name);
+        System.out.println("Passenger Capacity: "+ passengerCapacity);
+        System.out.println("Number of passengers enrolled: " + passengers.size());
+        //Print passenger details
+        for(Passenger passenger: passengers){
+            System.out.println("Name: "+ passenger.getName() + ", Passenger Number: " + passenger.getPassengerNumber());
+        }
+    }
+
+    //Print the details of all the activities that still have spaces available
+    // including how many spaces are available
+    public void printAvailableActivities(){
+        System.out.println("Travel Package: " + name);
+        for(Destination destination: itinerary){
+            System.out.println("Destination: " + destination.getName());
+            for(Activity activity: destination.getActivities()){
+                int capacity = activity.getCapacity();
+                int noOfPassengers = activity.getPassengers().size();
+                if(noOfPassengers<capacity){
+                    int availableSpaces = capacity - noOfPassengers;
+                    System.out.println("Activity: " + activity.getName() + ", Cost: "+ activity.getCost() + ", Capacity: "+ activity.getCapacity() + ", Spaces Available: " + availableSpaces +", Description: "+activity.getDescription());
+                }
+            }
+        }
+    }
+
+    public void addDestination(Destination destination) {
+        itinerary.add(destination);
+    }
+
+    public void addPassenger(Passenger passenger) {
+        passengers.add(passenger);
+    }
+
     //Getters & Setters
     public long getId() {
         return id;
@@ -80,54 +128,6 @@ public class TravelPackage {
 
     public void setPassengers(List<Passenger> passengers) {
         this.passengers = passengers;
-    }
-
-    //Methods
-    public void addDestination(Destination destination) {
-        itinerary.add(destination);
-    }
-
-    public void addPassenger(Passenger passenger) {
-        passengers.add(passenger);
-    }
-
-    //Print itinerary - destination and activities available in a travel package
-    public void printItinerary(){
-        System.out.println("Travel Package: " + name);
-        for(Destination destination: itinerary){
-            System.out.println("Destination: " + destination.getName());
-            for(Activity activity: destination.getActivities()){
-                System.out.println("Activity: " + activity.getName() + ", Cost: "+ activity.getCost() + ", Capacity: "+ activity.getCapacity() + ", Description: "+activity.getDescription());
-            }
-        }
-    }
-
-    //Print Passenger List of a travel package
-    public void printPassengerList(){
-        System.out.println("Travel Package: " + name);
-        System.out.println("Passenger Capacity: "+ passengerCapacity);
-        System.out.println("Number of passengers enrolled: " + passengers.size());
-        //Print passenger details
-        for(Passenger passenger: passengers){
-            System.out.println("Name: "+ passenger.getName() + ", Passenger Number: " + passenger.getPassengerNumber());
-        }
-    }
-
-    //Print the details of all the activities that still have spaces available
-    // including how many spaces are available
-    public void printAvailableActivities(){
-        System.out.println("Travel Package: " + name);
-        for(Destination destination: itinerary){
-            System.out.println("Destination: " + destination.getName());
-            for(Activity activity: destination.getActivities()){
-                int capacity = activity.getCapacity();
-                int noOfPassengers = activity.getPassengers().size();
-                if(noOfPassengers<capacity){
-                    int availableSpaces = capacity - noOfPassengers;
-                    System.out.println("Activity: " + activity.getName() + ", Cost: "+ activity.getCost() + ", Capacity: "+ activity.getCapacity() + ", Spaces Available: " + availableSpaces +", Description: "+activity.getDescription());
-                }
-            }
-        }
     }
 
 }

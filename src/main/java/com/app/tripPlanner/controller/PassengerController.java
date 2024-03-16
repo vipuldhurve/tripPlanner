@@ -31,7 +31,7 @@ public class PassengerController {
         boolean activitySignUp = passengerService.signUpActivity(passengerId, destinationId, activityId);
         Passenger passenger = passengerService.findPassengerById(passengerId);
         String activityName = activityService.findActivityById(activityId).getName();
-        String destinationName = destinationService.findDestinationById(activityId).getName();
+        String destinationName = destinationService.findDestinationById(destinationId).getName();
         String response = "failed!";
         if(activitySignUp) response = "was successful.";
         return "Activity(" + activityName + ") sign up for Passenger(" + passenger.getName() + ", " +passenger.getPassengerNumber()  + ") at Destination(" + destinationName + ") " + response;

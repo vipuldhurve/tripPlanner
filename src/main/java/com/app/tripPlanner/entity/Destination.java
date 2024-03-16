@@ -35,8 +35,6 @@ public class Destination {
         this.activities = activities;
     }
 
-
-
     //Getters & Setters
     public long getId() {
         return id;
