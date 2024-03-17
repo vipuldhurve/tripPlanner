@@ -1,6 +1,8 @@
 package com.app.tripPlanner.controller;
 
 import com.app.tripPlanner.entity.Passenger;
+import com.app.tripPlanner.exception.ActivityCapacityReachedException;
+import com.app.tripPlanner.exception.InsufficientBalanceException;
 import com.app.tripPlanner.service.ActivityService;
 import com.app.tripPlanner.service.DestinationService;
 import com.app.tripPlanner.service.PassengerService;
@@ -27,14 +29,22 @@ public class PassengerController {
     }
 
     @PostMapping("/sign-up-activity")
-    public String signUpForActivity(@RequestParam Long passengerId, @RequestParam Long destinationId, @RequestParam Long activityId ){
-        boolean activitySignUp = passengerService.signUpActivity(passengerId, destinationId, activityId);
-        Passenger passenger = passengerService.findPassengerById(passengerId);
-        String activityName = activityService.findActivityById(activityId).getName();
-        String destinationName = destinationService.findDestinationById(destinationId).getName();
-        String response = "failed!";
-        if(activitySignUp) response = "was successful.";
-        return "Activity(" + activityName + ") sign up for Passenger(" + passenger.getName() + ", " +passenger.getPassengerNumber()  + ") at Destination(" + destinationName + ") " + response;
+    public String signUpForActivity(@RequestParam Long passengerId,
+                                    @RequestParam Long destinationId,
+                                    @RequestParam Long activityId ){
+        try {
+            boolean activitySignUp = passengerService.signUpActivity(passengerId, destinationId, activityId);
+            Passenger passenger = passengerService.findPassengerById(passengerId);
+            String activityName = activityService.findActivityById(activityId).getName();
+            String destinationName = destinationService.findDestinationById(destinationId).getName();
+            String response = "failed!";
+            if(activitySignUp) response = "was successful.";
+            return "Activity(" + activityName + ") sign up for Passenger(" + passenger.getName() + ", " +passenger.getPassengerNumber()  + ") at Destination(" + destinationName + ") " + response;
+        } catch (InsufficientBalanceException | ActivityCapacityReachedException e){
+            return e.getMessage();
+        } catch (Exception e){
+            return "Activity sign up failed! Please try again later.";
+        }
     }
 
     //Helper api for printing passenger details in  console

@@ -3,6 +3,8 @@ package com.app.tripPlanner.service;
 import com.app.tripPlanner.entity.Activity;
 import com.app.tripPlanner.entity.Destination;
 import com.app.tripPlanner.entity.Passenger;
+import com.app.tripPlanner.exception.ActivityCapacityReachedException;
+import com.app.tripPlanner.exception.InsufficientBalanceException;
 import com.app.tripPlanner.repository.ActivityRepository;
 import com.app.tripPlanner.repository.DestinationRepository;
 import com.app.tripPlanner.repository.PassengerRepository;
@@ -25,11 +27,11 @@ public class PassengerService {
     private ActivityRepository activityRepository;
 
 
-    public Passenger findPassengerById(long id){
+    public Passenger findPassengerById(long id) {
         return passengerRepository.getById(id);
     }
 
-    public boolean signUpActivity(long passengerId, long destinationId, long activityId){
+    public boolean signUpActivity(long passengerId, long destinationId, long activityId) throws Exception {
         try {
             //fetch passenger details
             Passenger passenger = passengerRepository.getById(passengerId);
@@ -43,8 +45,8 @@ public class PassengerService {
             //SignUP
             //Add activity in activityList Of passenger
             //Add passenger in passengerList of activity
-            if (activity.getPassengers().size()<activity.getCapacity()){
-                switch (passenger.getType()){
+            if (activity.getPassengers().size() < activity.getCapacity()) {
+                switch (passenger.getType()) {
                     case STANDARD:
                         return signUpActivityStandardPassenger(passenger, activity);
                     case GOLD:
@@ -52,17 +54,24 @@ public class PassengerService {
                     case PREMIUM:
                         return signUpActivityPremiumPassenger(passenger, activity);
                 }
+            } else {
+                throw new ActivityCapacityReachedException("Activity " + activity.getName() + " has reached its capacity. Cannot sign up.");
             }
-            // else
-            System.out.println("Activity " + activity.getName() + " has reached its capacity. Cannot sign up.");
-            return false;
-        } catch (Exception e){
+        } catch (InsufficientBalanceException e){
             e.printStackTrace();
-            return false;
+            throw new InsufficientBalanceException(e.getMessage());
         }
+        catch (ActivityCapacityReachedException e){
+            e.printStackTrace();
+            throw new ActivityCapacityReachedException(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e.getMessage());
+        }
+        return false;
     }
 
-    private boolean signUpActivityStandardPassenger(Passenger passenger, Activity activity) {
+    private boolean signUpActivityStandardPassenger(Passenger passenger, Activity activity) throws InsufficientBalanceException {
         double activityCost = activity.getCost();
         if (passenger.getBalance() >= activityCost) {
             passenger.setBalance(passenger.getBalance() - activityCost);
@@ -72,13 +81,13 @@ public class PassengerService {
             activityRepository.save(activity);
             System.out.println(passenger.getName() + " (Standard Passenger) signed up for " + activity.getName());
             return true;
+        } else {
+            throw new InsufficientBalanceException("Insufficient balance for " + passenger.getName() + " to sign up for " + activity.getName());
         }
-        // else
-        System.out.println("Insufficient balance for " + passenger.getName() + " to sign up for " + activity.getName());
-        return false;
     }
 
-    private boolean signUpActivityGoldPassenger(Passenger passenger, Activity activity) {
+
+    private boolean signUpActivityGoldPassenger(Passenger passenger, Activity activity) throws InsufficientBalanceException {
         double activityCost = activity.getCost();
         double discountedCost = applyDiscount(activityCost, DISCOUNT_TEN_PERCENT);
         if (passenger.getBalance() >= discountedCost) {
@@ -89,10 +98,9 @@ public class PassengerService {
             activityRepository.save(activity);
             System.out.println(passenger.getName() + " (Gold Passenger) signed up for " + activity.getName() + " with " + (DISCOUNT_TEN_PERCENT * 100) + "% discount");
             return true;
+        } else {
+            throw new InsufficientBalanceException("Insufficient balance for " + passenger.getName() + " to sign up for " + activity.getName());
         }
-        // else
-        System.out.println("Insufficient balance for " + passenger.getName() + " to sign up for " + activity.getName());
-        return false;
     }
 
     private boolean signUpActivityPremiumPassenger(Passenger passenger, Activity activity) {
