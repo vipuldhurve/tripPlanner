@@ -58,11 +58,11 @@ public class PassengerService {
                 throw new ActivityCapacityReachedException("Activity " + activity.getName() + " has reached its capacity. Cannot sign up.");
             }
         } catch (InsufficientBalanceException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             throw new InsufficientBalanceException(e.getMessage());
         }
         catch (ActivityCapacityReachedException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             throw new ActivityCapacityReachedException(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();

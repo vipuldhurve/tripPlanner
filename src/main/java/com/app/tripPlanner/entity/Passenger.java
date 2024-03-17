@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "passenger")
-@JsonIgnoreProperties("travelPackage")
 public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,6 @@ public class Passenger {
     @Enumerated(EnumType.STRING)
     private PassengerType type;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "travel_package_id")
     private TravelPackage travelPackage;
