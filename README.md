@@ -9,7 +9,7 @@ For building and running the application you need:
 
 ## Running the application locally
 
-There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `de.codecentric.springbootsample.Application` class from your IDE.
+There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `com.app.tripPlanner.tripPlannerApplication` class from your IDE.
 
 Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
 
@@ -24,18 +24,17 @@ mvn spring-boot:run
 
 <br>
 
- ## Enterprise Architecture
 <div align="center">
-  <img src="https://github.com/vipuldhurve/tripPlanner/blob/main/design/tripPlanner%20EA.png" alt="Image" style="display:block; margin:auto;">
-  <p style="position:absolute; bottom:0; text-align:center; width:100%;"><br>This diagram illustrates the high-level structure and components of tripPlanner application.</p>
+  <img src="https://github.com/vipuldhurve/tripPlanner/blob/main/assets/tripPlanner%20EA.png" alt="Image" style="display:block; margin:auto;">
+  <p style="position:absolute; bottom:0; text-align:center; width:100%;">This diagram illustrates the high-level structure and components of tripPlanner application.</p>
 </div>
 
 <br><br><br>
 
  ## Database
 <div align="center">
-  <img src="https://github.com/vipuldhurve/tripPlanner/blob/main/design/tripPlanner%20database.png" alt="Image" style="display:block; margin:auto;">
-  <p style="position:absolute; bottom:0; text-align:center; width:100%;"><br>The database design depicts the schema, tables, and relationships for tripPlanner application.</p>
+  <img src="https://github.com/vipuldhurve/tripPlanner/blob/main/assets/tripPlanner%20database.png" alt="Image" style="display:block; margin:auto;">
+  <p style="position:absolute; bottom:0; text-align:center; width:100%;">The database design depicts the schema, tables, and relationships for tripPlanner application.</p>
 </div>
 
 <br><br><br>
@@ -43,8 +42,8 @@ mvn spring-boot:run
 
  ## Class Diagram
 <div align="center">
-  <img src="https://github.com/vipuldhurve/tripPlanner/blob/main/design/tripPlanner%20class%20diagram.png" alt="Image" style="display:block; margin:auto;">
-  <p style="position:absolute; bottom:0; text-align:center; width:100%;"><br>The class diagram showcases the classes, attributes, and relationships within tripPlanner application.</p>
+  <img src="https://github.com/vipuldhurve/tripPlanner/blob/main/assets/tripPlanner%20class%20diagram.png" alt="Image" style="display:block; margin:auto;">
+  <p style="position:absolute; bottom:0; text-align:center; width:100%;">The class diagram showcases the classes, attributes, and relationships within tripPlanner application.</p>
 </div>
 
 <br><br><br>
@@ -53,7 +52,7 @@ mvn spring-boot:run
 Default swagger url - [{base_url}/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html#/travel-package-controller)
 <br><br>
 <div align="center">
-  <img src="https://github.com/vipuldhurve/tripPlanner/blob/main/design/swagger%20api.png" alt="Image" style="display:block; margin:auto;">
+  <img src="https://github.com/vipuldhurve/tripPlanner/blob/main/assets/swagger%20api.png" alt="Image" style="display:block; margin:auto;">
   <p style="position:absolute; bottom:0; text-align:center; width:100%;"><br>This screenshot displays the Swagger API documentation for our application, showcasing all available endpoints and their details.</p>
 </div>
 
