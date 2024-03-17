@@ -41,6 +41,7 @@ public class TravelPackageController {
     @GetMapping("/print-itinerary/{id}")
     public String printItinerary(@PathVariable long id){
         TravelPackage travelPackage = travelPackageService.findTravelPackageById(id);
+        System.out.println("---- Printed itinerary of travel package:");
         travelPackage.printItinerary();
         return "Printed itinerary of Travel-Package(" + travelPackage.getName() +") in console";
     }
@@ -50,6 +51,7 @@ public class TravelPackageController {
     @GetMapping("/print-passengers/{id}")
     public String printPassengers(@PathVariable long id){
         TravelPackage travelPackage = travelPackageService.findTravelPackageById(id);
+        System.out.println("---- Printed passengers in the travel package:");
         travelPackage.printPassengerList();
         return "Printed Passenger list of Travel-Package(" + travelPackage.getName() +") in console";
     }
@@ -58,6 +60,7 @@ public class TravelPackageController {
     @GetMapping("/print-available-activities/{id}")
     public String printAvailableActivities(@PathVariable long id){
         TravelPackage travelPackage = travelPackageService.findTravelPackageById(id);
+        System.out.println("---- Printed available activities in the travel package:");
         travelPackage.printAvailableActivities();
         return "Printed activities that still have spaces available in Travel-Package(" + travelPackage.getName() +") in console";
     }

@@ -51,6 +51,7 @@ public class PassengerController {
     @GetMapping("/print-passenger-details/{id}")
     public String printPassengerDetails(@PathVariable long id){
         Passenger passenger = passengerService.findPassengerById(id);
+        System.out.println("---- Printed Passenger Details:");
         passenger.printPassengerDetails();
         return "Printed details of Passenger(" + passenger.getName() +", " + passenger.getPassengerNumber() +") in console";
     }
