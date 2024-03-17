@@ -56,4 +56,10 @@ Default swagger url - [{base_url}/swagger-ui/index.html](http://localhost:8080/s
   <p style="position:absolute; bottom:0; text-align:center; width:100%;"><br>This screenshot displays the Swagger API documentation for our application, showcasing all available endpoints and their details.</p>
 </div>
 
+The GET API's for printing are just Helper API's for printing data in the console:
+- Itinerary list of a travel package (print-itinerary)
+- Passenger list of a travel package (print-passengers)
+- Available activities in a travel package with spaces (print-available-activities)
+- Passenger details (print-passenger-details)
+
 <br><br><br>
