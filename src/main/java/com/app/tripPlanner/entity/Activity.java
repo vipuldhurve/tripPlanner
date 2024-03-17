@@ -13,8 +13,8 @@ public class Activity {
     private long id;
     private String name;
     private String description;
-    private Double cost;
-    private Integer capacity;
+    private double cost;
+    private int capacity;
 
     @ManyToOne
     @JoinColumn(name = "destination_id")
@@ -27,7 +27,7 @@ public class Activity {
     //Constructor
     public Activity() {} // Default constructor (required by JPA)
 
-    public Activity(String name, String description, Double cost, Integer capacity, Destination destination, List<Passenger> passengers, Integer signedUpPassengers) {
+    public Activity(String name, String description, double cost, int capacity, Destination destination, List<Passenger> passengers) {
         this.name = name;
         this.description = description;
         this.cost = cost;
@@ -36,7 +36,7 @@ public class Activity {
         this.passengers = passengers; //empty initially
     }
 
-    public Activity(String name, String description, Double cost, Integer capacity) {
+    public Activity(String name, String description, double cost, int capacity) {
         this.name = name;
         this.description = description;
         this.cost = cost;
@@ -68,19 +68,19 @@ public class Activity {
         this.description = description;
     }
 
-    public Double getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(Double cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
-    public Integer getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(Integer capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 

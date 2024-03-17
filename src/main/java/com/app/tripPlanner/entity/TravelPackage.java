@@ -1,8 +1,5 @@
 package com.app.tripPlanner.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class TravelPackage {
     @Column(name = "passenger_capacity")
     private int passengerCapacity;
 
-    @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Destination> itinerary;
 
     @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL)
@@ -44,6 +41,7 @@ public class TravelPackage {
     //Methods
     //Print itinerary - destination and activities available in a travel package
     public void printItinerary(){
+        System.out.println("---- Printed itinerary of travel package:");
         System.out.println("Travel Package: " + name);
         for(Destination destination: itinerary){
             System.out.println("Destination: " + destination.getName());
@@ -51,10 +49,12 @@ public class TravelPackage {
                 System.out.println("Activity: " + activity.getName() + ", Cost: "+ activity.getCost() + ", Capacity: "+ activity.getCapacity() + ", Description: "+activity.getDescription());
             }
         }
+        System.out.println("-------------");
     }
 
     //Print Passenger List of a travel package
     public void printPassengerList(){
+        System.out.println("---- Printed passengers in the travel package:");
         System.out.println("Travel Package: " + name);
         System.out.println("Passenger Capacity: "+ passengerCapacity);
         System.out.println("Number of passengers enrolled: " + passengers.size());
@@ -62,11 +62,13 @@ public class TravelPackage {
         for(Passenger passenger: passengers){
             System.out.println("Name: "+ passenger.getName() + ", Passenger Number: " + passenger.getPassengerNumber());
         }
+        System.out.println("-------------");
     }
 
     //Print the details of all the activities that still have spaces available
     // including how many spaces are available
     public void printAvailableActivities(){
+        System.out.println("---- Printed available activities in the travel package:");
         System.out.println("Travel Package: " + name);
         for(Destination destination: itinerary){
             System.out.println("Destination: " + destination.getName());
@@ -79,6 +81,7 @@ public class TravelPackage {
                 }
             }
         }
+        System.out.println("-------------");
     }
 
     public void addDestination(Destination destination) {

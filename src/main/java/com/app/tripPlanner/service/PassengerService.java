@@ -1,5 +1,6 @@
 package com.app.tripPlanner.service;
 
+import com.app.tripPlanner.dto.PassengerDto;
 import com.app.tripPlanner.entity.Activity;
 import com.app.tripPlanner.entity.Destination;
 import com.app.tripPlanner.entity.Passenger;
@@ -10,6 +11,8 @@ import com.app.tripPlanner.repository.DestinationRepository;
 import com.app.tripPlanner.repository.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
@@ -27,8 +30,21 @@ public class PassengerService {
     private ActivityRepository activityRepository;
 
 
-    public Passenger findPassengerById(long id) {
-        return passengerRepository.getById(id);
+    public PassengerDto findPassengerById(long id) {
+        try {
+            Passenger passenger = passengerRepository.getById(id);
+            PassengerDto passengerDto = new PassengerDto();
+            passengerDto.setId(passenger.getId());
+            passengerDto.setName(passenger.getName());
+            passengerDto.setBalance(passenger.getBalance());
+            passengerDto.setPassengerNumber(passenger.getPassengerNumber());
+            passengerDto.setType(passenger.getType());
+            passengerDto.setTravelPackageId(passenger.getTravelPackage().getId());
+            return passengerDto;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean signUpActivity(long passengerId, long destinationId, long activityId) throws Exception {
@@ -115,4 +131,9 @@ public class PassengerService {
         return cost * (1 - discount);
     }
 
+    public String printPassengerDetails(@PathVariable long id){
+        Passenger passenger = passengerRepository.getById(id);
+        passenger.printPassengerDetails();
+        return "Printed details of Passenger(" + passenger.getName() +", " + passenger.getPassengerNumber() +") in console";
+    }
 }

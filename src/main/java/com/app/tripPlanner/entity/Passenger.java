@@ -3,6 +3,7 @@ package com.app.tripPlanner.entity;
 import com.app.tripPlanner.constants.PassengerType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Passenger {
     @Enumerated(EnumType.STRING)
     private PassengerType type;
 
+//    @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
     @ManyToOne
     @JoinColumn(name = "travel_package_id")
     private TravelPackage travelPackage;
@@ -51,18 +53,17 @@ public class Passenger {
 
     //Print Passenger Details
     public void printPassengerDetails(){
+        System.out.println("---- Printed Passenger Details:");
         System.out.println("Passenger Name: " + name);
         System.out.println("Passenger Number: "+ passengerNumber);
         System.out.println("Travel Subscription Type: "+ type.name());
         if (type!= PassengerType.PREMIUM){
             System.out.println("Balance: " + balance);
         }
-//        1.list of each activity they have signed up for
-//        2.the destination the at which the activity is taking place
-//        3.the price the passenger paid for the activity(activity cost)
         for(Activity activity: activities){
             System.out.println("Activity name: " + activity.getName() +", Cost: " + activity.getCost() + ", Destination: " + activity.getDestination());
         }
+        System.out.println("-------------");
     }
 
 
