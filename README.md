@@ -57,7 +57,7 @@ Default swagger url - [{base_url}/swagger-ui/index.html](http://localhost:8080/s
 </div>
 
 <br>
-The GET APIs for printing are just Helper APIs for printing data in the console:
+The below mentioned GET APIs are just Helper APIs for printing data in the console:
 
 - Itinerary list of a travel package (`print-itinerary/{id}`)
 - Passenger list of a travel package (`print-passengers/{id}`)
